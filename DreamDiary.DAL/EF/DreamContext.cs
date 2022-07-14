@@ -20,6 +20,7 @@ namespace DreamDiary.DAL.EF
         public DbSet<Dream> Dreams { get; set; }
         public DbSet<GoalTask> Tasks { get; set; }
         public DbSet<ImageDream> DreamImages { get; set; }
+        public DbSet<ImageProfile> ImageProfiles { get; set; }
         public DbSet<ImageGoal> GoalImages { get; set; }
 
         public DreamContext(DbContextOptions options):base(options)

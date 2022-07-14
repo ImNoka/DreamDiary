@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DreamDiary.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace DreamDiary.BLL.DTO
         public int? Age { get; set; }
         public string? About { get; set; }
         public int UserId { get; set; }
+        //public ImageProfile? ImageProfile { get; set; }
+        public Guid ImageProfileGuid { get; set; }
     }
 }

@@ -62,7 +62,9 @@ namespace DreamDiary.DAL.Repository
                 current.LastName = item.LastName;
                 current.About = item.About;
                 current.Age = item.Age;
+                current.ImageProfile = item.ImageProfile;
                 db.Entry(current).CurrentValues.SetValues(current);
+                db.Entry(current.ImageProfile).CurrentValues.SetValues(current.ImageProfile);
             }
             await db.SaveChangesAsync();
             return current;

@@ -22,6 +22,9 @@ namespace DreamDiary.BLL.Mappers
             CreateMap<UserProfileDTO, UserProfile>();
             CreateMap<UserProfile, UserProfileDTO>();
 
+            CreateMap<ImageProfile, ImageProfileDTO>();
+            CreateMap<ImageProfileDTO, ImageProfile>();
+
             //CreateMap<Note, NoteDTO>();
             //CreateMap<NoteDTO, Note>();
 

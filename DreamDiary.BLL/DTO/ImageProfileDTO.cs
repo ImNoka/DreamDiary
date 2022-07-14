@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DreamDiary.DAL.Entities
+namespace DreamDiary.BLL.DTO
 {
-    public class ImageBase : BaseEntity
+    public class ImageProfileDTO
     {
+        public Guid Guid { get; set; }
         public byte[] Image { get; set; }
-        
+        public Guid ProfileGuid { get; set; }
     }
 }

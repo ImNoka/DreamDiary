@@ -4,6 +4,7 @@ using DreamDiary.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DreamDiary.DAL.Migrations
 {
     [DbContext(typeof(DreamContext))]
-    partial class DreamContextModelSnapshot : ModelSnapshot
+    [Migration("20220714193645_AddImagesToEntities2")]
+    partial class AddImagesToEntities2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,7 +152,7 @@ namespace DreamDiary.DAL.Migrations
                     b.HasIndex("ProfileGuid")
                         .IsUnique();
 
-                    b.ToTable("ImageProfiles");
+                    b.ToTable("ImageProfile");
                 });
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.NoteGoal", b =>

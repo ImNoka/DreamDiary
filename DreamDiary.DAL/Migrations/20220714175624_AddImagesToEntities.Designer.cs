@@ -4,6 +4,7 @@ using DreamDiary.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DreamDiary.DAL.Migrations
 {
     [DbContext(typeof(DreamContext))]
-    partial class DreamContextModelSnapshot : ModelSnapshot
+    [Migration("20220714175624_AddImagesToEntities")]
+    partial class AddImagesToEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,15 +144,9 @@ namespace DreamDiary.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<Guid>("ProfileGuid")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Guid");
 
-                    b.HasIndex("ProfileGuid")
-                        .IsUnique();
-
-                    b.ToTable("ImageProfiles");
+                    b.ToTable("ImageProfile");
                 });
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.NoteGoal", b =>
@@ -328,17 +324,6 @@ namespace DreamDiary.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Image");
-
-                    b.Navigation("UserProfile");
-                });
-
-            modelBuilder.Entity("DreamDiary.DAL.Entities.ImageProfile", b =>
-                {
-                    b.HasOne("DreamDiary.DAL.Entities.UserProfile", "UserProfile")
-                        .WithOne()
-                        .HasForeignKey("DreamDiary.DAL.Entities.ImageProfile", "ProfileGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("UserProfile");
                 });
