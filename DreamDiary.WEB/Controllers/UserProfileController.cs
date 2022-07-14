@@ -8,6 +8,7 @@ namespace DreamDiary.WEB.Controllers
     [Route("[controller]")]
     public class UserProfileController : ControllerBase
     {
+
         IUserProfileService _service;
 
         public UserProfileController(IUserProfileService service)
@@ -15,11 +16,21 @@ namespace DreamDiary.WEB.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public IEnumerable<UserProfileDTO> GetAll()
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
-            throw new NotImplementedException();
+            return Ok(_service.Get(id));
         }
+
+        [HttpPut("")]
+        public IActionResult Update(UserProfileDTO profileDTO)
+        {
+            if (_service.Update(profileDTO) == null)
+                return Problem("Профиль null");
+            return Ok(_service.Update(profileDTO));
+        }
+
 
     }
 }

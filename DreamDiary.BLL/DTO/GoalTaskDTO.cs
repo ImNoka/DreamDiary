@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DreamDiary.DAL.Entities
+namespace DreamDiary.BLL.DTO
 {
-    public class ImageDream : ImageBase
+    public class GoalTaskDTO
     {
 
     }

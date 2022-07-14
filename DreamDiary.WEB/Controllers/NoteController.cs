@@ -15,7 +15,7 @@ namespace DreamDiary.WEB.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<NoteDTO> GetAll()
+        public IEnumerable<NoteProfileDTO> GetAll()
         {
             throw new NotImplementedException();
         }
