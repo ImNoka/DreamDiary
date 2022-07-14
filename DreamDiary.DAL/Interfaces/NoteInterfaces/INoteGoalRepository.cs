@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace DreamDiary.DAL.Interfaces
 {
-    public interface IGoalRepository : IRepository<Goal>
+    public interface INoteGoalRepository : IRepository<NoteGoal>, IBaseRepository<NoteGoal>
     {
+
     }
 }

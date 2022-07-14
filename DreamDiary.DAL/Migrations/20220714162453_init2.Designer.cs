@@ -4,6 +4,7 @@ using DreamDiary.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DreamDiary.DAL.Migrations
 {
     [DbContext(typeof(DreamContext))]
-    partial class DreamContextModelSnapshot : ModelSnapshot
+    [Migration("20220714162453_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,28 +82,6 @@ namespace DreamDiary.DAL.Migrations
                     b.ToTable("Goals");
                 });
 
-            modelBuilder.Entity("DreamDiary.DAL.Entities.GoalTask", b =>
-                {
-                    b.Property<Guid>("Guid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Guid");
-
-                    b.ToTable("Tasks");
-                });
-
             modelBuilder.Entity("DreamDiary.DAL.Entities.ImageDream", b =>
                 {
                     b.Property<Guid>("Guid")
@@ -114,7 +94,7 @@ namespace DreamDiary.DAL.Migrations
 
                     b.HasKey("Guid");
 
-                    b.ToTable("DreamImages");
+                    b.ToTable("ImageDream");
                 });
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.ImageGoal", b =>
@@ -129,7 +109,7 @@ namespace DreamDiary.DAL.Migrations
 
                     b.HasKey("Guid");
 
-                    b.ToTable("GoalImages");
+                    b.ToTable("ImageGoal");
                 });
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.NoteGoal", b =>
@@ -156,7 +136,7 @@ namespace DreamDiary.DAL.Migrations
 
                     b.HasIndex("GoalGuid");
 
-                    b.ToTable("GoalNotes");
+                    b.ToTable("NoteGoal");
                 });
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.NoteProfile", b =>
@@ -183,34 +163,7 @@ namespace DreamDiary.DAL.Migrations
 
                     b.HasIndex("ProfileGuid");
 
-                    b.ToTable("ProfileNotes");
-                });
-
-            modelBuilder.Entity("DreamDiary.DAL.Entities.NoteTask", b =>
-                {
-                    b.Property<Guid>("Guid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("TaskGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Guid");
-
-                    b.HasIndex("TaskGuid");
-
-                    b.ToTable("TaskNotes");
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.User", b =>
@@ -328,17 +281,6 @@ namespace DreamDiary.DAL.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("DreamDiary.DAL.Entities.NoteTask", b =>
-                {
-                    b.HasOne("DreamDiary.DAL.Entities.GoalTask", "Task")
-                        .WithMany("TaskNotes")
-                        .HasForeignKey("TaskGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Task");
-                });
-
             modelBuilder.Entity("DreamDiary.DAL.Entities.UserProfile", b =>
                 {
                     b.HasOne("DreamDiary.DAL.Entities.User", "User")
@@ -353,11 +295,6 @@ namespace DreamDiary.DAL.Migrations
             modelBuilder.Entity("DreamDiary.DAL.Entities.Goal", b =>
                 {
                     b.Navigation("GoalNotes");
-                });
-
-            modelBuilder.Entity("DreamDiary.DAL.Entities.GoalTask", b =>
-                {
-                    b.Navigation("TaskNotes");
                 });
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.User", b =>

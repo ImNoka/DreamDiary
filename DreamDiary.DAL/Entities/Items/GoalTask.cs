@@ -11,6 +11,6 @@ namespace DreamDiary.DAL.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsCompleted { get; set; } = false;
-        public IEnumerable<NoteTask> TaskNotes { get; set; }
+        public IEnumerable<NoteTask>? TaskNotes { get; set; }
     }
 }

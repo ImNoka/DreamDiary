@@ -8,8 +8,8 @@ namespace DreamDiary.WEB.Controllers
     [Route("[controller]")]
     public class NoteController : ControllerBase
     {
-        INoteService _service;
-        public NoteController(INoteService service)
+        INoteProfileService _service;
+        public NoteController(INoteProfileService service)
         {
             _service = service;
         }

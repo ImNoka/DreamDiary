@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DreamDiary.DAL.Interfaces
 {
-    public interface IUserProfileRepository : IRepository<UserProfile>
+    public interface INoteTaskRepository : IRepository<NoteTask>, IBaseRepository<NoteTask>
     {
     }
 }

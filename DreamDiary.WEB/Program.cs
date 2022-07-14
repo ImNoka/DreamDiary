@@ -9,13 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<INoteProfileService, NoteProfileService>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
-builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IDreamService, DreamService>();
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<INoteRepository, NoteRepository>();
+builder.Services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+builder.Services.AddTransient<INoteProfileRepository, NoteProfileRepository>();
 builder.Services.AddTransient<IGoalRepository, GoalRepository>();
 builder.Services.AddTransient<IDreamRepository, DreamRepository>();
 

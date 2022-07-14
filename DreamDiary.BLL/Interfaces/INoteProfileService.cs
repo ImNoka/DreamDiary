@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DreamDiary.BLL.Interfaces
 {
-    public interface INoteService
+    public interface INoteProfileService
     {
     }
 }
