@@ -25,7 +25,6 @@ namespace DreamDiary.DAL.EF
 
         public DreamContext(DbContextOptions options):base(options)
         {
-
         }
 
 

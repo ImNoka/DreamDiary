@@ -9,6 +9,6 @@ namespace DreamDiary.DAL.Interfaces
 {
     public interface IImageProfileRepository : IImageRepository<ImageProfile>
     {
-
+        
     }
 }

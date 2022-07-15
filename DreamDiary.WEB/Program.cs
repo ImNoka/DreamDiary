@@ -14,6 +14,7 @@ builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IDreamService, DreamService>();
 builder.Services.AddScoped<IImageProfileService, ImageProfileService>();
+builder.Services.AddScoped<IDreamService, DreamService>();
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserProfileRepository, UserProfileRepository>();
@@ -21,7 +22,8 @@ builder.Services.AddTransient<INoteProfileRepository, NoteProfileRepository>();
 builder.Services.AddTransient<IGoalRepository, GoalRepository>();
 builder.Services.AddTransient<IDreamRepository, DreamRepository>();
 builder.Services.AddTransient<IImageProfileRepository, ImageProfileRepository>();
-
+builder.Services.AddTransient<IDreamRepository, DreamRepository>();
+builder.Services.AddTransient<IImageDreamRepository, ImageDreamRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

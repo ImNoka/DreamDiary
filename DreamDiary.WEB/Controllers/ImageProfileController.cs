@@ -2,6 +2,7 @@
 using DreamDiary.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DreamDiary.WEB.Controllers
 {
@@ -50,6 +51,7 @@ namespace DreamDiary.WEB.Controllers
                 fileStream.Read(buffer, 0, (int)image.Length);
             }
             return Ok(_service.Update(buffer, guid));
+            //return Ok(_service.Update(bytes, guid));
         }
 
         [HttpDelete]

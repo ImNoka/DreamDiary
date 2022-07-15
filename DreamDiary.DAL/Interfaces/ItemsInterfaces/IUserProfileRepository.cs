@@ -9,5 +9,6 @@ namespace DreamDiary.DAL.Interfaces
 {
     public interface IUserProfileRepository : IRepository<UserProfile>, IBaseRepository<UserProfile>
     {
+        UserProfile Get(int id);
     }
 }

@@ -9,6 +9,7 @@ namespace DreamDiary.BLL.DTO
 {
     public class GoalDTO
     {
+        public Guid Guid { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
         public Guid ProfileGuid { get; set; }

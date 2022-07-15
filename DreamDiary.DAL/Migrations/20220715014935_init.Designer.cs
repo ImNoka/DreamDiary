@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DreamDiary.DAL.Migrations
 {
     [DbContext(typeof(DreamContext))]
-    [Migration("20220714163310_AddedDbSets")]
-    partial class AddedDbSets
+    [Migration("20220715014935_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,7 +30,7 @@ namespace DreamDiary.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ImageGuid")
+                    b.Property<Guid?>("ImageDreamGuid")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -46,7 +46,7 @@ namespace DreamDiary.DAL.Migrations
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("ImageGuid");
+                    b.HasIndex("ImageDreamGuid");
 
                     b.HasIndex("ProfileGuid");
 
@@ -59,7 +59,10 @@ namespace DreamDiary.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ImageGuid")
+                    b.Property<Guid?>("ImageDreamGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ImageGuid")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -75,7 +78,7 @@ namespace DreamDiary.DAL.Migrations
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("ImageGuid");
+                    b.HasIndex("ImageDreamGuid");
 
                     b.HasIndex("ProfileGuid");
 
@@ -110,11 +113,16 @@ namespace DreamDiary.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("DreamGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<byte[]>("Image")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Guid");
+
+                    b.HasIndex("DreamGuid");
 
                     b.ToTable("DreamImages");
                 });
@@ -125,13 +133,39 @@ namespace DreamDiary.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("GoalGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<byte[]>("Image")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Guid");
 
+                    b.HasIndex("GoalGuid");
+
                     b.ToTable("GoalImages");
+                });
+
+            modelBuilder.Entity("DreamDiary.DAL.Entities.ImageProfile", b =>
+                {
+                    b.Property<Guid>("Guid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("ProfileGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Guid");
+
+                    b.HasIndex("ProfileGuid")
+                        .IsUnique();
+
+                    b.ToTable("ImageProfiles");
                 });
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.NoteGoal", b =>
@@ -255,6 +289,9 @@ namespace DreamDiary.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("ImageProfileGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -264,6 +301,8 @@ namespace DreamDiary.DAL.Migrations
 
                     b.HasKey("Guid");
 
+                    b.HasIndex("ImageProfileGuid");
+
                     b.HasIndex("UserId")
                         .IsUnique();
 
@@ -272,14 +311,29 @@ namespace DreamDiary.DAL.Migrations
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.Dream", b =>
                 {
-                    b.HasOne("DreamDiary.DAL.Entities.ImageDream", "Image")
+                    b.HasOne("DreamDiary.DAL.Entities.ImageDream", "ImageDream")
                         .WithMany()
-                        .HasForeignKey("ImageGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ImageDreamGuid");
 
                     b.HasOne("DreamDiary.DAL.Entities.UserProfile", "UserProfile")
                         .WithMany("Dreams")
+                        .HasForeignKey("ProfileGuid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ImageDream");
+
+                    b.Navigation("UserProfile");
+                });
+
+            modelBuilder.Entity("DreamDiary.DAL.Entities.Goal", b =>
+                {
+                    b.HasOne("DreamDiary.DAL.Entities.ImageGoal", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageDreamGuid");
+
+                    b.HasOne("DreamDiary.DAL.Entities.UserProfile", "UserProfile")
+                        .WithMany()
                         .HasForeignKey("ProfileGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -289,21 +343,35 @@ namespace DreamDiary.DAL.Migrations
                     b.Navigation("UserProfile");
                 });
 
-            modelBuilder.Entity("DreamDiary.DAL.Entities.Goal", b =>
+            modelBuilder.Entity("DreamDiary.DAL.Entities.ImageDream", b =>
                 {
-                    b.HasOne("DreamDiary.DAL.Entities.ImageGoal", "Image")
+                    b.HasOne("DreamDiary.DAL.Entities.Dream", "Dream")
                         .WithMany()
-                        .HasForeignKey("ImageGuid")
+                        .HasForeignKey("DreamGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Dream");
+                });
+
+            modelBuilder.Entity("DreamDiary.DAL.Entities.ImageGoal", b =>
+                {
+                    b.HasOne("DreamDiary.DAL.Entities.Goal", "Goal")
+                        .WithMany()
+                        .HasForeignKey("GoalGuid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Goal");
+                });
+
+            modelBuilder.Entity("DreamDiary.DAL.Entities.ImageProfile", b =>
+                {
                     b.HasOne("DreamDiary.DAL.Entities.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("ProfileGuid")
+                        .WithOne()
+                        .HasForeignKey("DreamDiary.DAL.Entities.ImageProfile", "ProfileGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Image");
 
                     b.Navigation("UserProfile");
                 });
@@ -343,11 +411,17 @@ namespace DreamDiary.DAL.Migrations
 
             modelBuilder.Entity("DreamDiary.DAL.Entities.UserProfile", b =>
                 {
+                    b.HasOne("DreamDiary.DAL.Entities.ImageProfile", "ImageProfile")
+                        .WithMany()
+                        .HasForeignKey("ImageProfileGuid");
+
                     b.HasOne("DreamDiary.DAL.Entities.User", "User")
                         .WithOne("Profile")
                         .HasForeignKey("DreamDiary.DAL.Entities.UserProfile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ImageProfile");
 
                     b.Navigation("User");
                 });

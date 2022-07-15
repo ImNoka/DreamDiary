@@ -41,7 +41,7 @@ namespace DreamDiary.DAL.Repository
             //throw new Exception("Not found");
         }
 
-        public User Get(int id)
+        public User GetById(int id)
         {
             throw new NotImplementedException();
         }

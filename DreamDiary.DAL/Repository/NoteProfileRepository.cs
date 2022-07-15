@@ -48,7 +48,7 @@ namespace DreamDiary.DAL.Repository
             return notes;
         }
 
-        public NoteProfile Get(int id)
+        public NoteProfile GetByGuid(Guid guid)
         {
             throw new NotImplementedException();
         }

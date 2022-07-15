@@ -9,5 +9,6 @@ namespace DreamDiary.DAL.Interfaces
     public interface IBaseRepository<T>
     {
         Task<bool> DeleteAsync(Guid guid);
+        T GetByGuid(Guid guid);
     }
 }

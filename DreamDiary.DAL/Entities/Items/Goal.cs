@@ -17,9 +17,9 @@ namespace DreamDiary.DAL.Entities
         public Guid ProfileGuid { get; set; }
         public IEnumerable<NoteGoal> GoalNotes { get; set; }
 
-        [ForeignKey("ImageGuid")]
-        public ImageGoal Image { get; set; }
-        public Guid ImageGuid { get; set; }
+        [ForeignKey("ImageDreamGuid")]
+        public ImageGoal? Image { get; set; }
+        public Guid? ImageGuid { get; set; }
 
     }
 }

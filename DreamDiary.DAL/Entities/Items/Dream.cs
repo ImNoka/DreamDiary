@@ -14,8 +14,8 @@ namespace DreamDiary.DAL.Entities
         [ForeignKey("ProfileGuid")]
         public UserProfile UserProfile { get; set; }
         public Guid ProfileGuid { get; set; }
-        [ForeignKey("ImageGuid")]
-        public ImageDream Image { get; set; }
-        public Guid ImageGuid { get; set; }
+        [ForeignKey("ImageDreamGuid")]
+        public ImageDream? ImageDream { get; set; }
+        public Guid? ImageDreamGuid { get; set; }
     }
 }

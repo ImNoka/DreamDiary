@@ -15,7 +15,10 @@ namespace DreamDiary.BLL.Mappers
 
         public DreamMapper()
         {
-            
+            CreateMap<ImageDream,ImageDreamDTO>();
+            CreateMap<ImageDreamDTO, ImageDream>();
+
+
             CreateMap<User, UserDTO>();
             CreateMap<UserDTO, User>();
 
@@ -24,6 +27,15 @@ namespace DreamDiary.BLL.Mappers
 
             CreateMap<ImageProfile, ImageProfileDTO>();
             CreateMap<ImageProfileDTO, ImageProfile>();
+
+
+
+            CreateMap<Dream, DreamDTO>()
+                .ForMember(dest=>dest.Image, opt=>opt.MapFrom(src=>src.ImageDream));
+            CreateMap<DreamDTO, Dream>()
+                .ForMember(dest=>dest.ImageDream, opt=>opt.MapFrom(src=>src.Image));
+
+
 
             //CreateMap<Note, NoteDTO>();
             //CreateMap<NoteDTO, Note>();

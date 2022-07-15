@@ -10,10 +10,11 @@ namespace DreamDiary.BLL.DTO
 {
     public class DreamDTO
     {
+        public Guid Guid { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
 
         public Guid ProfileGuid { get; set; }
-        public ImageDream Image { get; set; }
+        public ImageDreamDTO Image { get; set; }
     }
 }

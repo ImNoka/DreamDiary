@@ -30,6 +30,11 @@ namespace DreamDiary.DAL.Repository
             throw new NotImplementedException();
         }
 
+        public Goal GetByGuid(Guid guid)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Goal> UpdateAsync(Goal item)
         {
             throw new NotImplementedException();

@@ -9,5 +9,6 @@ namespace DreamDiary.DAL.Interfaces
 {
     public interface INoteProfileRepository : IRepository<NoteProfile>, IBaseRepository<NoteProfile>
     {
+        IEnumerable<NoteProfile> GetByProfileGuid(Guid guid);
     }
 }

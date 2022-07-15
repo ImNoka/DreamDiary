@@ -53,6 +53,11 @@ namespace DreamDiary.DAL.Repository
             return db.Profiles;
         }
 
+        public UserProfile GetByGuid(Guid guid)
+        {
+            return db.Profiles.Find(guid);
+        }
+
         public async Task<UserProfile> UpdateAsync(UserProfile item)
         {
             UserProfile current = await db.Profiles.FirstOrDefaultAsync(p => p.Guid == item.Guid);
@@ -62,9 +67,10 @@ namespace DreamDiary.DAL.Repository
                 current.LastName = item.LastName;
                 current.About = item.About;
                 current.Age = item.Age;
-                current.ImageProfile = item.ImageProfile;
+                //current.ImageProfile = item.ImageProfile ?? null;
+                //current.ImageProfileGuid = item.ImageProfileGuid ?? null;
                 db.Entry(current).CurrentValues.SetValues(current);
-                db.Entry(current.ImageProfile).CurrentValues.SetValues(current.ImageProfile);
+                //db.Entry(current.ImageProfile).CurrentValues.SetValues(current.ImageProfile);
             }
             await db.SaveChangesAsync();
             return current;

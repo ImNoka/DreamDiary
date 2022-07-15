@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DreamDiary.DAL.Interfaces
 {
-    public interface IDreamRepository : IRepository<Dream>, IBaseRepository<Dream>
+    public interface IImageDreamRepository : IImageRepository<ImageDream>
     {
-        IEnumerable<Dream> GetByProfileGuid(Guid guid);
     }
 }

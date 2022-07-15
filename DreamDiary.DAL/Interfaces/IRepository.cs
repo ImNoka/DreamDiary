@@ -9,7 +9,7 @@ namespace DreamDiary.DAL.Interfaces
     public interface IRepository <T> where T : class
     {
         IEnumerable<T> GetAll();
-        T Get(int id);
+        //T Get(int id);
         Task<T> AddAsync(T item);
         Task<T> UpdateAsync(T item);
     }

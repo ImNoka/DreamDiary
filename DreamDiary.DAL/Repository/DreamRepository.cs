@@ -1,5 +1,7 @@
-﻿using DreamDiary.DAL.Entities;
+﻿using DreamDiary.DAL.EF;
+using DreamDiary.DAL.Entities;
 using DreamDiary.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +12,63 @@ namespace DreamDiary.DAL.Repository
 {
     public class DreamRepository : IDreamRepository
     {
-        public Task<Dream> AddAsync(Dream item)
+        DreamContext db;
+        DbSet<Dream> _dbSet; 
+
+        public DreamRepository(DreamContext context)
         {
-            throw new NotImplementedException();
+            db = context;
+            _dbSet = db.Set<Dream>();
         }
 
-        public Task<bool> DeleteAsync(Guid guid)
+        public async Task<Dream> AddAsync(Dream item)
         {
-            throw new NotImplementedException();
+            await _dbSet.AddAsync(item);
+            /*if(item.ImageDream!=null)
+            {
+                await db.DreamImages.AddAsync(item.ImageDream);
+            }*/
+            await db.SaveChangesAsync();
+            return item;
         }
 
-        public Dream Get(int id)
+        public async Task<bool> DeleteAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            Dream dream = await _dbSet.FindAsync(guid);
+            _dbSet.Remove(dream);
+            await db.SaveChangesAsync();
+            return true;
+        }
+
+        public Dream GetByGuid(Guid guid)
+        {
+            return _dbSet.FirstOrDefault(d=> d.Guid == guid);
         }
 
         public IEnumerable<Dream> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbSet.Include(d=>d.ImageDream);
         }
 
-        public Task<Dream> UpdateAsync(Dream item)
+        public async Task<Dream> UpdateAsync(Dream item)
         {
-            throw new NotImplementedException();
+            Dream current = _dbSet.Find(item.Guid);
+            if(current!=null)
+            {
+                current.Text = item.Text;
+                current.Name = item.Name;
+                current.ImageDream=item.ImageDream;
+                current.ImageDreamGuid = item.ImageDreamGuid;
+                db.Entry(current).CurrentValues.SetValues(current);
+                await db.SaveChangesAsync();
+            }
+            return current;
+
+        }
+
+        public IEnumerable<Dream> GetByProfileGuid(Guid guid)
+        {
+            return _dbSet.Where(d => d.ProfileGuid == guid);
         }
     }
 }
