@@ -9,5 +9,6 @@ namespace DreamDiary.DAL.Interfaces
 {
     public interface IGoalRepository : IRepository<Goal>, IBaseRepository<Goal>
     {
+        IEnumerable<Goal> GetByProfileGuid(Guid guid);
     }
 }

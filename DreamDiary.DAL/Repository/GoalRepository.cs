@@ -1,5 +1,7 @@
-﻿using DreamDiary.DAL.Entities;
+﻿using DreamDiary.DAL.EF;
+using DreamDiary.DAL.Entities;
 using DreamDiary.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +12,31 @@ namespace DreamDiary.DAL.Repository
 {
     public class GoalRepository : IGoalRepository
     {
-        public Task<Goal> AddAsync(Goal item)
+
+        DreamContext db;
+        DbSet<Goal> _dbSetGoals;
+        DbSet<GoalTask> _dbSetTasks;
+
+        public GoalRepository(DreamContext context)
         {
-            throw new NotImplementedException();
+            db = context;
+            _dbSetTasks = db.Set<GoalTask>();
+            _dbSetGoals = db.Set<Goal>();
         }
 
-        public Task<bool> DeleteAsync(Guid guid)
+        public async Task<Goal> AddAsync(Goal item)
         {
-            throw new NotImplementedException();
+            await _dbSetGoals.AddAsync(item);
+            await db.SaveChangesAsync();
+            return item;
+        }
+
+        public async Task<bool> DeleteAsync(Guid guid)
+        {
+            Goal goal = await _dbSetGoals.FindAsync(guid);
+            _dbSetGoals.Remove(goal);
+            await db.SaveChangesAsync();
+            return true;
         }
 
         public Goal Get(int id)
@@ -32,12 +51,34 @@ namespace DreamDiary.DAL.Repository
 
         public Goal GetByGuid(Guid guid)
         {
-            throw new NotImplementedException();
+            IEnumerable<GoalTask> tasks = _dbSetTasks.Where(t => t.GoalGuid == guid);
+            Goal goal = _dbSetGoals.Find(guid);
+            goal.Tasks = tasks;
+            return goal;
         }
 
-        public Task<Goal> UpdateAsync(Goal item)
+        public IEnumerable<Goal> GetByProfileGuid(Guid guid)
         {
-            throw new NotImplementedException();
+            IEnumerable<Goal> goals = _dbSetGoals.Where(g => g.ProfileGuid == guid);
+            foreach(Goal goal in goals)
+            {
+                goal.Tasks = _dbSetTasks.Where(t => t.GoalGuid == goal.Guid);
+            }
+            return goals;
+        }
+
+        public async Task<Goal> UpdateAsync(Goal item)
+        {
+            Goal current = await _dbSetGoals.FindAsync(item.Guid);
+            if(current != null)
+            {
+                current.Text=item.Text;
+                current.Name = item.Name;
+                current.IsCompleted = item.IsCompleted;
+                db.Entry(current).CurrentValues.SetValues(current);
+                await db.SaveChangesAsync();
+            }
+            return current;
         }
     }
 }

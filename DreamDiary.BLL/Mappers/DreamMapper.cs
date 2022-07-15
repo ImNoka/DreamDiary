@@ -35,7 +35,8 @@ namespace DreamDiary.BLL.Mappers
             CreateMap<DreamDTO, Dream>()
                 .ForMember(dest=>dest.ImageDream, opt=>opt.MapFrom(src=>src.Image));
 
-
+            CreateMap<NoteProfile, NoteProfileDTO>();
+            CreateMap<NoteProfileDTO, NoteProfile>();
 
             //CreateMap<Note, NoteDTO>();
             //CreateMap<NoteDTO, Note>();

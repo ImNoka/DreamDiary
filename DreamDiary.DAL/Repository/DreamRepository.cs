@@ -42,7 +42,10 @@ namespace DreamDiary.DAL.Repository
 
         public Dream GetByGuid(Guid guid)
         {
-            return _dbSet.FirstOrDefault(d=> d.Guid == guid);
+            ImageDream imageDream = db.DreamImages.FirstOrDefault(x => x.DreamGuid == guid);
+            Dream dream = _dbSet.Find(guid);
+            dream.ImageDream = imageDream;
+            return dream;
         }
 
         public IEnumerable<Dream> GetAll()
@@ -68,7 +71,7 @@ namespace DreamDiary.DAL.Repository
 
         public IEnumerable<Dream> GetByProfileGuid(Guid guid)
         {
-            return _dbSet.Where(d => d.ProfileGuid == guid);
+            return _dbSet.Where(d => d.ProfileGuid == guid).Include(d=>d.ImageDream);
         }
     }
 }

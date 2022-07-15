@@ -25,7 +25,7 @@ namespace DreamDiary.WEB.Controllers
             return Ok(users);
         }
 
-        [HttpPut("")]
+        [HttpPut]
         public IActionResult Update(UserDTO userDTO)
         {
             if (_userService.Update(userDTO) == null)

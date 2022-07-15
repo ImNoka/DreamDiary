@@ -28,9 +28,9 @@ namespace DreamDiary.DAL.EF
         }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=DESKTOP-GP81B11\SQLNOKAINC;Database=DreamDiaryDatabase;Trusted_Connection=true;MultipleActiveResultSets=true;Encrypt=false");
-        }
+        }*/
     }
 }

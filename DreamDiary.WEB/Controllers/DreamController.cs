@@ -21,12 +21,6 @@ namespace DreamDiary.WEB.Controllers
             return Ok(_service.GetByGuid(guid));
         }
 
-        [HttpGet("{profileGuid}")]
-        public IActionResult GetByProfileGuid(Guid profileGuid)
-        {
-            return Ok(_service.GetByProfileGuid(profileGuid));
-        }
-
         [HttpGet]
         public IActionResult GetAll()
         {

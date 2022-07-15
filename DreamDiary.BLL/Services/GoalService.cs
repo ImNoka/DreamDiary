@@ -9,5 +9,6 @@ namespace DreamDiary.BLL.Services
 {
     public class GoalService : IGoalService
     {
+
     }
 }

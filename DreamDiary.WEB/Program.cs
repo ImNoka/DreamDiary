@@ -3,10 +3,17 @@ using DreamDiary.BLL.Services;
 using DreamDiary.DAL.EF;
 using DreamDiary.DAL.Interfaces;
 using DreamDiary.DAL.Repository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var configBuilder = new ConfigurationBuilder();
+configBuilder.SetBasePath(Directory.GetCurrentDirectory());
+configBuilder.AddJsonFile("appsettings.json");
+
+var config = configBuilder.Build();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<INoteProfileService, NoteProfileService>();
@@ -30,7 +37,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DreamContext>();
+builder.Services.AddDbContext<DreamContext>(opt => 
+                        opt.UseSqlServer(@config.GetConnectionString("DreamDiaryDatabase")));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();

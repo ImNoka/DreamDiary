@@ -15,11 +15,14 @@ namespace DreamDiary.DAL.Entities
         [ForeignKey("ProfileGuid")]
         public UserProfile UserProfile { get; set; }
         public Guid ProfileGuid { get; set; }
-        public IEnumerable<NoteGoal> GoalNotes { get; set; }
+        public IEnumerable<NoteGoal>? GoalNotes { get; set; }
+        public IEnumerable<GoalTask>? Tasks { get; set; }
 
         [ForeignKey("ImageDreamGuid")]
         public ImageGoal? Image { get; set; }
         public Guid? ImageGuid { get; set; }
+
+        public bool IsCompleted { get; set; }
 
     }
 }
